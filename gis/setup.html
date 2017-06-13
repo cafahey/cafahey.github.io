@@ -235,7 +235,9 @@ code {
   word-break: keep-all !important;
   word-wrap: initial !important;
 }
-
+body{ /* Normal  */
+      font-size: 18px;
+  }
 </style>
 <div id="getting-started-with-r" class="section level1">
 <h1>Getting Started with R</h1>
@@ -253,31 +255,12 @@ code {
 <p>Open <strong>RStudio</strong>. Start a new <strong>R Script</strong> by clicking the <strong>green +</strong> in the upper left corner, just below ‘File’. Select R Script from the dropdown menu. This is where you will compose your code. (An R Script is the equivalent of a Stata DO File.)</p>
 <p>The <strong>Console</strong> window is where you will see the results of your code after you run it. The <strong>Environment</strong> window is where you will see datasets and other data objects you will create. The <strong>Plots</strong> window is where your maps will display. Also note that there is a <strong>Help</strong> window, where you can search for help when writing your code.</p>
 </div>
-<div id="install-packages" class="section level3">
-<h3>Install Packages</h3>
-<p>R is an open-source language, which means that anyone can access the language code and write new code to continue developing the language. Users can contribute “packages” for others to use, which are useful collections of functions, data, and code. Packages are downloaded from the internet, using some simple code within R. You will need a decent network connection to download packages.</p>
-<p>Here is a list of the all packages we will use in this tutorial. <strong>I recommend installing them in advance of our workshop because they may take some time to download if the network connection is poor.</strong></p>
-<p>Paste the following code into your R Script and press <code>Ctr + Enter</code> on your keyboard.</p>
-<pre class="r"><code># Install packages
-install.packages(&quot;sp&quot;) #provides classes &amp; methods for spatial data
-install.packages(&quot;rgdal&quot;) #for working with shapefiles
-install.packages(&quot;prettymapr&quot;) #for adding a scale bar and north arrow
-install.packages(&quot;foreign&quot;) #for importing DBF files (or Stata, SAS, etc) 
-install.packages(&quot;readxl&quot;) #for importing Excel files
-install.packages(&quot;ggmap&quot;) #for geocoding and advanced spatial visualization
-install.packages(&quot;classInt&quot;) #for creating categories of data
-install.packages(&quot;RColorBrewer&quot;) #for pretty color palettes
-install.packages(&quot;dplyr&quot;) #for manipulating data
-install.packages(&quot;leaflet&quot;) #for interactive maps
-install.packages(&quot;htmlwidgets&quot;) #for saving leaflet maps as html files</code></pre>
-<p>Once you have installed a package, it will remain on your computer. You do NOT need to install it again the next time you use R.</p>
-</div>
 <div id="set-your-working-directory" class="section level3">
 <h3>Set Your Working Directory</h3>
 <p>The working directory is where you will store the files you are working with. By setting the working directory, you avoid having to type the full path out every time you want to load or save a file.</p>
 <ol style="list-style-type: decimal">
-<li><p>Create a new folder called <strong>GIS Workshop</strong> on your Desktop. This will be your working directory, where you’ll store all of the files for this workshop.</p></li>
-<li><p>Determine the address of your working directory: Open your GIS Workshop folder on your computer and right-click on the file path, then select <strong>Copy address</strong>.</p></li>
+<li><p>Create a new folder called <strong>GIS Workshop</strong> on your <strong>Desktop</strong>. This will be your working directory, where you’ll store all of the files for this workshop.</p></li>
+<li><p>Determine the address of your working directory: Open your GIS Workshop folder on your Desktop and right-click on the file path, then select <strong>Copy address</strong>.</p></li>
 <li><p>Paste the address you copied into your R Script (<code>Ctrl+V</code>). It will likely appear in this format: <code>C:\Users\Carrie\Desktop\GIS Workshop</code></p></li>
 <li><p>Remove the <code>C:</code> and change the forward slashes (<code>\</code>) to back slashes (<code>/</code>). Put quotes (<code>&quot; &quot;</code>) around everything. Then type <code>setwd(</code> before it, and enclose with another <code>)</code> after. It should look like this (“Carrie” should be replaced with your directory):</p></li>
 </ol>
@@ -295,13 +278,41 @@ setwd(&quot;/Users/Carrie/Desktop/GIS Workshop&quot;)</code></pre>
 <li><a href="https://data.humdata.org/dataset/zimbabwe-health">Zimbabwe Health Institutions</a></li>
 <li><a href="https://data.humdata.org/dataset/zimbabwe-admin-level-1-boundaries">Zimbabwe Province Boundaries</a></li>
 </ul>
-<p>Each download will come with a zipped folder of several files. Extract the files from each downloaded folder into your GIS Workshop folder.</p>
+<p>Each download will come with a zipped folder of several files. Extract the files from each downloaded folder into your <strong>GIS Workshop</strong> folder.</p>
 <p>You will also need the following files:</p>
 <ul>
 <li><a href="https://cafahey.github.io/ANC2012.xlsx">ANC2012.xlsx</a></li>
 <li><a href="https://cafahey.github.io/Census2012.csv">Census2012.csv</a></li>
 </ul>
 <p>Save all of these files in your <strong>GIS Workshop</strong> folder.</p>
+</div>
+<div id="install-packages" class="section level3">
+<h3>Install Packages</h3>
+<p>R is an open-source language, which means that anyone can access the language code and write new code to continue developing the language. Users can contribute “packages” for others to use, which are useful collections of functions, data, and code. Packages are downloaded from the internet, using some simple code within R. You will need a decent network connection to download packages.</p>
+<p>Here is a list of the all packages we will use in this tutorial. <strong>I recommend installing them in advance of our workshop because they may take some time to download if the network connection is poor.</strong></p>
+<p>Paste the following code into your R Script, highlight all of the code, and press <code>Ctr + Enter</code> on your keyboard.</p>
+<pre class="r"><code># Install packages
+install.packages(&quot;sp&quot;) #provides classes &amp; methods for spatial data
+install.packages(&quot;rgdal&quot;) #for working with shapefiles
+install.packages(&quot;prettymapr&quot;) #for adding a scale bar and north arrow
+install.packages(&quot;foreign&quot;) #for importing DBF files (or Stata, SAS, etc) 
+install.packages(&quot;readxl&quot;) #for importing Excel files
+install.packages(&quot;ggmap&quot;) #for geocoding and advanced spatial visualization
+install.packages(&quot;classInt&quot;) #for creating categories of data
+install.packages(&quot;RColorBrewer&quot;) #for pretty color palettes
+install.packages(&quot;dplyr&quot;) #for manipulating data
+install.packages(&quot;leaflet&quot;) #for interactive maps
+install.packages(&quot;htmlwidgets&quot;) #for saving leaflet maps as html files</code></pre>
+<p>Once you have installed a package, it will remain on your computer. You do NOT need to install it again the next time you use R.</p>
+</div>
+<div id="general-tips-for-using-r" class="section level3">
+<h3>General Tips for Using R</h3>
+<ol style="list-style-type: decimal">
+<li>Write your code in a script (similar to a Stata DO File) so you can easily edit and save it.</li>
+<li>To run a portion of your script, highlight it and press <code>Ctrl + Enter</code> at the same time.</li>
+<li>“Comment” (take notes) in your script using the <code>#</code> symbol (equivalent to using the * symbol in Stata). Imagine someone (like yourself in 5 years) opening this file and trying to understand what you were working on.</li>
+<li>Keep your files well organized and give them meaningful names.</li>
+</ol>
 </div>
 </div>
 
