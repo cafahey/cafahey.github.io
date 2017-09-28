@@ -242,7 +242,7 @@ body{ /* Normal  */
 <div id="mapping-shapefiles" class="section level1">
 <h1>Mapping Shapefiles</h1>
 <pre class="r"><code># Set Working Directory
-setwd(&quot;/Users/Carrie/Desktop/Spatial Workshop&quot;) #replace with your directory</code></pre>
+setwd(&quot;/Users/Carrie/Box Sync/GIS/Spatial Workshop&quot;) #replace with your directory</code></pre>
 <div id="loading-packages" class="section level2">
 <h2>Loading Packages</h2>
 <p>If you want to use an installed package, you will need to load the package using the <code>library()</code> function. Each time you close R and then re-open it, you will need to re-load the packages you want to use.</p>
@@ -251,8 +251,8 @@ library(sp)
 library(rgdal)</code></pre>
 <p>The <code>help</code> function is useful for looking up documentation on packages or code. The results will display in the Help tab within R Studio. If you do not find what you are looking for, remember that you can find lots of help by searching online.</p>
 <pre class="r"><code># What do these packages do?
-help(package=sp) #provides classes &amp; methods for spatial data
-help(package=rgdal) #helps to read shapefiles</code></pre>
+?sp #provides classes &amp; methods for spatial data
+?rgdal #helps to read shapefiles</code></pre>
 </div>
 <div id="importing-shapefiles" class="section level2">
 <h2>Importing Shapefiles</h2>
@@ -406,7 +406,7 @@ plot(facilities2007_shp, add=TRUE)</code></pre>
 <p>Alright, let’s examine the data in our 2007 facilities shapefile. This time we’ll construct a more nicely formatted output with columns for the frequency and proportion of facilities by type. We do this by creating two new objects we’ll call <code>Freq</code> and <code>Pct</code>, and binding them together with the <code>cbind()</code> function. We’ll also use the <code>head()</code> function again, this time specifying that we want to see the first 15 rows.</p>
 <pre class="r"><code># Within the recently updated facilities, select the clinics, RHCs, and hospitals.
 # Explore the types of facilities
-Freq &lt;- sort(table(facilities_shp@data$TYPEOFFACI), decreasing=TRUE)
+Freq &lt;- sort(table(facilities_shp$TYPEOFFACI), decreasing=TRUE)
 Pct &lt;- prop.table(Freq)*100 #multiply by 100 for percentage format
 Pct &lt;- round(Pct, 2) # round the Pct values to two decimal points
 head(cbind(Freq, Pct),15) #use head( ,15) to just look at first 15 rows of the table</code></pre>
