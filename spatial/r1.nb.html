@@ -335,15 +335,13 @@ library(rgdal)</code></pre>
 <p>There are many different commands to import data in R, depending on the type of data. We downloaded health facilities and provinces as <em>shapfiles</em>, which means they are spatial <em>vector</em> data. Shapefiles are pretty easy to work with. Use the <code>readOGR()</code> function from the rgdal package to import shapefiles (files ending in <code>.shp</code>). R can easily find the file by name because you set your working directory to the location of the file. Assign your shapefile to an object called <code>facilities_shp</code>, using the <code>&lt;-</code> notation.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDbGFzcyBvZiBkYXRhXG5jbGFzcyhmYWNpbGl0aWVzX3NocClcbmBgYCJ9 -->
-<pre class="r"><code># Class of data
-class(facilities_shp)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBPcHRpb25zXG5vcHRpb25zKHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkgI2ltcG9ydCB0ZXh0IHZhcmlhYmxlcyBhcyBjaGFyYWN0ZXJzXG5cbiMgSW1wb3J0IHRoZSBoZWFsdGggZmFjaWxpdGllcyBzaGFwZWZpbGVcbmZhY2lsaXRpZXNfc2hwIDwtIHJlYWRPR1IoXCJ6d2VfaGVhbHRoX2ZhY2lsaXR5X21vaGN3LnNocFwiKVxuYGBgIn0= -->
+<pre class="r"><code># Options
+options(stringsAsFactors = FALSE) #import text variables as characters
+
+# Import the health facilities shapefile
+facilities_shp &lt;- readOGR(&quot;zwe_health_facility_mohcw.shp&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU3BhdGlhbFBvaW50c0RhdGFGcmFtZVwiXG5hdHRyKCxcInBhY2thZ2VcIilcblsxXSBcInNwXCJcbiJ9 -->
-<pre><code>[1] &quot;SpatialPointsDataFrame&quot;
-attr(,&quot;package&quot;)
-[1] &quot;sp&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -352,13 +350,10 @@ attr(,&quot;package&quot;)
 <p>It’s always a good idea to examine your data after you import it. In particular, we need to know what class of data we are working with. Different classes of data require different commands.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IGFzIGEgbWFwXG5wbG90KGZhY2lsaXRpZXNfc2hwKVxuYGBgIn0= -->
-<pre class="r"><code># Plot as a map
-plot(facilities_shp)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDbGFzcyBvZiBkYXRhXG5jbGFzcyhmYWNpbGl0aWVzX3NocClcbmBgYCJ9 -->
+<pre class="r"><code># Class of data
+class(facilities_shp)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,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" /></p>
-<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>We see that facilities_shp is a <code>SpatialPointsDataFrame</code>, which means it contains point vector data which can be readily mapped. Try it out with R’s built-in <code>plot()</code> function!</p>
@@ -380,285 +375,108 @@ View(facilities_shp) #View opens a new tab showing the data as a spreadsheet</co
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb29rIGF0IHRoZSBsYXN0IGZldyByb3dzIG9mIGRhdGFcbnRhaWwoZmFjaWxpdGllc19zaHApXG5gYGAifQ== -->
-<pre class="r"><code># Look at the last few rows of data
-tail(facilities_shp)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb29rIGF0IHRoZSBmaXJzdCBmZXcgcm93cyBvZiBkYXRhIGluIHRoZSBDb25zb2xlXG5oZWFkKGZhY2lsaXRpZXNfc2hwKVxuYGBgIn0= -->
+<pre class="r"><code># Look at the first few rows of data in the Console
+head(facilities_shp)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgY29vcmRpbmF0ZXMgICBJRCAgIERJU1RSSUNUIExPTkdJVFVERSAgTEFUSVRVREUgRUxFVkFUSU9OIFVQREFURUQgTkFNRU9GRkFDSSBPV05FUlNISVBcbjE0NjUgKDI3LjcxODExLCAtMTguMTcwNDYpIDEyODggICAgICBCaW5nYSAgMjcuNzE4MTEgLTE4LjE3MDQ2ICAgICAgMTAyMiAgICAyMDA3ICAgIENoaWJpbGEgICAgICAgICA4XG4xNDY2ICgyOC42MzEyOSwgLTE5LjQ3MjIxKSAxMjg5ICAgICAgIEJ1YmkgIDI4LjYzMTI5IC0xOS40NzIyMSAgICAgIDEyMDggICAgMjAwNyAgTWR1dHNoYW5lICAgICAgICAgNVxuMTQ2NyAoMjguNDE0MjYsIC0xOS43Mzg4NCkgMTI5MCAgICAgVW1ndXphICAyOC40MTQyNiAtMTkuNzM4ODQgICAgICAxMTUzICAgIDIwMDcgICAgUmVkd29vZCAgICAgICAgIDVcbjE0NjggICAgKDI4LjAwNiwgLTE5LjkxMjEpIDEyOTEgICAgIFVtZ3V6YSAgMjguMDA2MDAgLTE5LjkxMjEwICAgICAgMTEzMiAgICAyMDA3ICAgICAgTXVudHUgICAgICAgICA1XG4xNDY5ICAoMjcuODAxODUsIC0yMC4wOTAzKSAxMjkyIFRzaG9sb3RzaG8gIDI3LjgwMTg1IC0yMC4wOTAzMCAgICAgIDEyNDYgICAgMjAwNyAgIENoZWZ1bnllICAgICAgICAgOFxuMTQ3MCAoMjcuMTg5OTMsIC0xOS40ODYxNykgMTI5MyBUc2hvbG90c2hvICAyNy4xODk5MyAtMTkuNDg2MTcgICAgICAgICAwICAgIDIwMDcgICBTYW1haHVydSAgICAgICAgIDdcbiAgICAgWUVBUkJVSUxUICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0kgTlVNT0ZET0NUTyBOVU1PRk5VUlNFIE5VTU9GTlVSXzEgTlVNT0ZQQ04gTlVNT0ZFSFRTIE5VTU9GUEhBUk1cbjE0NjUgICAgICAyMDAyICAgICAgIENvdW5jaWwgKENvbnN0cnVjdGlvbikgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgIDBcbjE0NjYgICAgICAyMDA0ICAgICAgICAgICAgICAgICAgICAgICBDbGluaWMgICAgICAgICAgMCAgICAgICAgICAxICAgICAgICAgIDEgICAgICAgIDEgICAgICAgICAwICAgICAgICAgIDBcbjE0NjcgICAgICAyMDA2ICAgICAgICAgICAgICAgICAgICAgICBDbGluaWMgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgIDBcbjE0NjggICAgICAyMDA0ICAgICAgICAgICAgICAgICAgICAgICBDbGluaWMgICAgICAgICAgMCAgICAgICAgICAxICAgICAgICAgIDEgICAgICAgIDEgICAgICAgICAwICAgICAgICAgIDBcbjE0NjkgICAgICAyMDA2IENvdW5jaWwgQ2xpbmljKENvbnN0cnVjdGlvbikgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgIDBcbjE0NzAgICAgICAyMDA2ICAgICAgICAgICAgICAgICAgICAgICBDbGluaWMgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgIDBcbiAgICAgTlVNT0ZMQUJURSBOVU1PRkJFRFMgTlVNT0ZNQVRFUiBOVU1PRkdFTkVSIENBVEhNRU5UUE8gRElTVE5FQVJFUyBIQVNDT01NVU5JIEhBU0NPTU1VXzEgSEFTV0FURVJQSVxuMTQ2NSAgICAgICAgICAwICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwXG4xNDY2ICAgICAgICAgIDAgICAgICAgICAxICAgICAgICAgIDEgICAgICAgICAgMCAgICAgICA1NzQ0ICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDFcbjE0NjcgICAgICAgICAgMCAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgIDc2MDAgICAgICAgICA1MiAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMFxuMTQ2OCAgICAgICAgICAwICAgICAgICAgNSAgICAgICAgICA0ICAgICAgICAgIDEgICAgICAgIDQyOCAgICAgICAgIDM1ICAgICAgICAgIDAgICAgICAgICAgMSAgICAgICAgICAxXG4xNDY5ICAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDBcbjE0NzAgICAgICAgICAgMCAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMFxuICAgICBIQVNXQVRFUlVOIEhBU0VMRUNUUkkgSEFTRUxFQ1RfMSBESVNUTkVBUl8xIEhBU1NBTklUQVQgSEFTU0FOSVRfMSBIQVNTQU5JVF8yIEhBU1NFQ1VSSVQgSEFTU0VDVVJfMVxuMTQ2NSAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMFxuMTQ2NiAgICAgICAgICAwICAgICAgICAgIDEgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDEgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMVxuMTQ2NyAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMFxuMTQ2OCAgICAgICAgICAwICAgICAgICAgIDEgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDEgICAgICAgICAgMSAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMVxuMTQ2OSAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMFxuMTQ3MCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMFxuICAgICBIQVNST0FEVEFSIEhBU1JPQURHUkEgSEFTSU5DSU5FUiBIQVNBVVRPV0FZIEhBU0RFTlRBTFxuMTQ2NSAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgMFxuMTQ2NiAgICAgICAgICAxICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAxICAgICAgICAgMFxuMTQ2NyAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgMFxuMTQ2OCAgICAgICAgICAxICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAxICAgICAgICAgMFxuMTQ2OSAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgMFxuMTQ3MCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgMFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ09NTUVOVFNcbjE0NjUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVuZGVyIGNvbnN0cnVjdGlvbiBiZWxvdyByb29mIGxldmVsXG4xNDY2IDEuTmVlZCB0ZWxlcGhvbmUgb3IgcmFkaW8gMi4gR2VuZXJhbCBiZWRzIGZvciBwYXRpZW50IG9ic2VydmF0aW9uIDMuIFBvb3Igd2F0ZXIgc3VwcGx5IHN5c3RlbVxuMTQ2NyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDb21wbGV0ZSAtT3BlbmluZyBsb25nIG92ZXJkdWVcbjE0NjggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMS4gQWNjb21vZGF0aW9uIHByb2JsZW1zIDIuV2F0ZXIgZW5naW5lIHByb2JsZW1zXG4xNDY5ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVuZGVyIGNvbnN0cnVjdGlvblxuMTQ3MCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvbXBsZXRlIGF3YWl0aW5nIG9wZW5pbmdcbiAgICAgVFlQRV9FRElURVxuMTQ2NSAgICAgICA8TkE+XG4xNDY2ICAgICBDbGluaWNcbjE0NjcgICAgIENsaW5pY1xuMTQ2OCAgICAgQ2xpbmljXG4xNDY5ICAgICAgIDxOQT5cbjE0NzAgICAgIENsaW5pY1xuIn0= -->
-<pre><code>               coordinates   ID   DISTRICT LONGITUDE  LATITUDE ELEVATION UPDATED NAMEOFFACI OWNERSHIP
-1465 (27.71811, -18.17046) 1288      Binga  27.71811 -18.17046      1022    2007    Chibila         8
-1466 (28.63129, -19.47221) 1289       Bubi  28.63129 -19.47221      1208    2007  Mdutshane         5
-1467 (28.41426, -19.73884) 1290     Umguza  28.41426 -19.73884      1153    2007    Redwood         5
-1468    (28.006, -19.9121) 1291     Umguza  28.00600 -19.91210      1132    2007      Muntu         5
-1469  (27.80185, -20.0903) 1292 Tsholotsho  27.80185 -20.09030      1246    2007   Chefunye         8
-1470 (27.18993, -19.48617) 1293 Tsholotsho  27.18993 -19.48617         0    2007   Samahuru         7
-     YEARBUILT                   TYPEOFFACI NUMOFDOCTO NUMOFNURSE NUMOFNUR_1 NUMOFPCN NUMOFEHTS NUMOFPHARM
-1465      2002       Council (Construction)          0          0          0        0         0          0
-1466      2004                       Clinic          0          1          1        1         0          0
-1467      2006                       Clinic          0          0          0        0         0          0
-1468      2004                       Clinic          0          1          1        1         0          0
-1469      2006 Council Clinic(Construction)          0          0          0        0         0          0
-1470      2006                       Clinic          0          0          0        0         0          0
-     NUMOFLABTE NUMOFBEDS NUMOFMATER NUMOFGENER CATHMENTPO DISTNEARES HASCOMMUNI HASCOMMU_1 HASWATERPI
-1465          0         0          0          0          0          0          0          0          0
-1466          0         1          1          0       5744          0          0          0          1
-1467          0         0          0          0       7600         52          0          0          0
-1468          0         5          4          1        428         35          0          1          1
-1469          0         0          0          0          0          0          0          0          0
-1470          0         0          0          0          0          0          0          0          0
-     HASWATERUN HASELECTRI HASELECT_1 DISTNEAR_1 HASSANITAT HASSANIT_1 HASSANIT_2 HASSECURIT HASSECUR_1
-1465          0          0          0          0          0          0          0          0          0
-1466          0          1          0          0          1          0          0          0          1
-1467          0          0          0          0          0          0          0          0          0
-1468          0          1          0          0          1          1          0          0          1
-1469          0          0          0          0          0          0          0          0          0
-1470          0          0          0          0          0          0          0          0          0
-     HASROADTAR HASROADGRA HASINCINER HASAUTOWAY HASDENTAL
-1465          0          0          0          0         0
-1466          1          0          0          1         0
-1467          0          0          0          0         0
-1468          1          0          0          1         0
-1469          0          0          0          0         0
-1470          0          0          0          0         0
-                                                                                          COMMENTS
-1465                                                           Under construction below roof level
-1466 1.Need telephone or radio 2. General beds for patient observation 3. Poor water supply system
-1467                                                                Complete -Opening long overdue
-1468                                              1. Accomodation problems 2.Water engine problems
-1469                                                                            Under construction
-1470                                                                     Complete awaiting opening
-     TYPE_EDITE
-1465       &lt;NA&gt;
-1466     Clinic
-1467     Clinic
-1468     Clinic
-1469       &lt;NA&gt;
-1470     Clinic</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>It appears that our health facilities shapefile came with lots of data about each facility! There are variables including its name, year built, type of facility, number of doctors, number of nurses, etc! Unfortunately it appears that many of these values are missing, judging by all of those zeros. It looks like the data have not been updated since 1998 for these facilities.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZZWFyIHVwZGF0ZWRcbnRhYmxlKGZhY2lsaXRpZXNfc2hwJFVQREFURUQpXG5gYGAifQ== -->
-<pre class="r"><code># Year updated
-table(facilities_shp$UPDATED)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb29rIGF0IHRoZSBsYXN0IGZldyByb3dzIG9mIGRhdGFcbnRhaWwoZmFjaWxpdGllc19zaHApXG5gYGAifQ== -->
+<pre class="r"><code># Look at the last few rows of data
+tail(facilities_shp)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4xOTk4IDIwMDcgXG4xMjEyICAyNTggXG4ifQ== -->
-<pre><code>
-1998 2007 
-1212  258 </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>At the end of the dataset, the updated year is more recent (2007), and there are some values filled in for doctors, nurses, beds, etc. Exciting! Now let’s take a look at the data for some of these variables.</p>
 <p><strong>TIP!</strong> If you have ever used Stata, you should note a key difference in R is that you can easily work with numerous datasets at a time. So, when you want to access a variable, you need to tell R which dataset the variable is in. This is done using the <code>$</code> symbol.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZZWFyIHVwZGF0ZWRcbnRhYmxlKGZhY2lsaXRpZXNfc2hwJFVQREFURUQpXG5gYGAifQ== -->
+<pre class="r"><code># Year updated
+table(facilities_shp$UPDATED)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We see that there are two years for the <code>UPDATED</code> variable: 1998 and 2007. Most of the facilities (1,212 of them) were updated in 1998, while 258 facilities were updated in 2007.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBOdW1iZXIgb2YgZG9jdG9yc1xudGFibGUoZmFjaWxpdGllc19zaHAkTlVNT0ZET0NUTylcbmBgYCJ9 -->
 <pre class="r"><code># Number of doctors
 table(facilities_shp$NUMOFDOCTO)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAwICAgIDEgICAgMiAgICAzIFxuMTQ0OCAgIDE1ICAgIDUgICAgMiBcbiJ9 -->
-<pre><code>
-   0    1    2    3 
-1448   15    5    2 </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>We see that there are two years for the <code>UPDATED</code> variable: 1998 and 2007. Most of the facilities (1,212 of them) were updated in 1998, while 258 facilities were updated in 2007.</p>
+<p>We see that most facilities have <code>0</code> recorded for the number of doctors. 15 facilities have 1 doctor, 5 facilities have 2 doctors, and 2 facilities have 3 doctors recorded. It’s likely that many of the 0 values should actually be recorded as missing (<code>NA</code>).</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBOdW1iZXIgb2YgbnVyc2VzXG50YWJsZShmYWNpbGl0aWVzX3NocCROVU1PRk5VUlNFKVxuYGBgIn0= -->
 <pre class="r"><code># Number of nurses
 table(facilities_shp$NUMOFNURSE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAwICAgIDEgICAgMiAgICAzICAgIDQgICAgNSAgICA2ICAgIDcgICAgOCAgICA5ICAgMTIgICAxNCAgIDE1ICAgMTcgICAyMCAgIDMwICAgNDEgXG4xMjk5ICAgNzEgICA0NyAgIDE1ICAgIDUgICAgNSAgIDEwICAgIDIgICAgMyAgICAxICAgIDIgICAgMyAgICAyICAgIDEgICAgMiAgICAxICAgIDEgXG4ifQ== -->
-<pre><code>
-   0    1    2    3    4    5    6    7    8    9   12   14   15   17   20   30   41 
-1299   71   47   15    5    5   10    2    3    1    2    3    2    1    2    1    1 </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>We see that most facilities have <code>0</code> recorded for the number of doctors. 15 facilities have 1 doctor, 5 facilities have 2 doctors, and 2 facilities have 3 doctors recorded. It’s likely that many of the 0 values should actually be recorded as missing (<code>NA</code>).</p>
+<p>Again, most of the facilities have 0 recorded for the number of nurses. However, there are more facilities with at least 1 nurse, and 1 facility even has 41 nurses recorded.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBOdW1iZXIgb2YgYmVkc1xuc3VtbWFyeShmYWNpbGl0aWVzX3NocCROVU1PRkJFRFMpXG5gYGAifQ== -->
 <pre class="r"><code># Number of beds
 summary(facilities_shp$NUMOFBEDS)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgIE1pbi4gIDFzdCBRdS4gICBNZWRpYW4gICAgIE1lYW4gIDNyZCBRdS4gICAgIE1heC4gXG4gIDAuMDAwMCAgIDAuMDAwMCAgIDAuMDAwMCAgIDAuODY3MyAgIDAuMDAwMCAxNTAuMDAwMCBcbiJ9 -->
-<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-  0.0000   0.0000   0.0000   0.8673   0.0000 150.0000 </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Again, most of the facilities have 0 recorded for the number of nurses. However, there are more facilities with at least 1 nurse, and 1 facility even has 41 nurses recorded.</p>
+<p>Using the summary command, we can see that at least three-quarters of facilities have 0 beds recorded. The maximum number of beds recorded is 150.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUeXBlcyBvZiBmYWNpbGl0aWVzXG50YWJsZShmYWNpbGl0aWVzX3NocCRUWVBFT0ZGQUNJKVxuYGBgIn0= -->
 <pre class="r"><code># Types of facilities
 table(facilities_shp$TYPEOFFACI)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgICAgICAgICAgICAgICAoTmV3IFNpdGUpICAgICBBY3RpbmcgRGlzdHJpY3QgSG9zcGl0YWwgICAgICAgICAgICAgIEFpcmZvcmNlLWNsaW5pYyBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDMgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuICAgICAgICAgICAgICAgICBBcm15IENsaW5pYyAgICAgICAgICAgICAgICBBcm15IEhvc3BpdGFsICAgICAgICAgICAgICAgICAgICAgICBjbGluaWMgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAxNiBcbiAgICAgICAgICAgICAgICAgICAgICBDbGluaWMgICAgICAgIENsaW5pYyAoY29uc3RydWN0aW9uKSAgICAgICAgQ2xpbmljIFByaXZhdGUgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgIDc3MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUgXG4gICAgICAgICAgICBDbGluaWMoTm90IE9wZW4pICAgICAgICAgICAgICAgICAgQ2xpbmljbGluaWMgICAgICAgICAgICAgQ29udWNpbCBOb3QgT3BlbiBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDggICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAzIFxuICAgICAgICAgICAgICAgICAgICAgQ291bmNpbCAgICAgICBDb3VuY2lsIChDb25zdHJ1Y3Rpb24pICAgICAgICAgICAgICAgQ291bmNpbCBjbGluaWMgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgNSBcbiAgICAgICAgICAgICAgQ291bmNpbCBDbGluaWMgQ291bmNpbCBDbGluaWMoQ29uc3RydWN0aW9uKSAgICAgICAgICAgICAgICBEaXN0cmljdCBIb3NwIFxuICAgICAgICAgICAgICAgICAgICAgICAgICA3NiAgICAgICAgICAgICAgICAgICAgICAgICAgICA0ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgXG4gICAgICAgICAgIERpc3RyaWN0IEhvc3BpdGFsICAgICAgICAgICAgIERpc3RyaWN0IEhvc3B0YWwgICAgICAgICAgICAgIEZhbWlseSBQbGFubmluZyBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgMzkgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuICAgICAgICAgICAgICAgICBGYXJtIENsaW5pYyAgICAgICAgICAgRmFybSBIZWFsdGggQ2xpbmljICAgICAgICAgICAgIEZvcmVzdHJ5LVByaXZhdGUgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgMiBcbiAgICAgICAgICAgIEdlbmVyYWwgSG9zcGl0YWwgICAgICAgICAgICAgR29sZCBNaW5lIENsaW5pYyAgICAgICAgICAgICAgICAgICBHdnQgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgMTcgXG4gICAgICAgICAgICAgICAgIEd2dCBDb3VuY2lsICAgICAgICAgICAgICAgR3Z0IEluZmVjdGlvbnMgICAgICAgICAgICAgICAgICAgICBIb3NwaXRhbCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgIDE5IFxuICAgICAgICAgICAgICAgIEhvdGVsIENsaW5pYyAgICAgICAgICAgIEluZHVzdHJpYWwgQ2xpbmljICAgICAgICAgICBNYXRlYmVsZWxhbmQgTm9ydGggXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSBcbiAgICAgICAgICAgICAgICAgTWluZSBDbGluaWMgICAgICAgICAgICAgICBNaXNzaW9uIGNsaW5pYyAgICAgICAgICAgICAgIE1pc3Npb24gQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAyMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgMTYgXG4gICAgICAgICAgICBNaXNzaW9uIEhvc3BpdGFsICAgICAgICAgICAgTWlzc2lvbiBIb3NwaXRhbHMgICAgICAgICAgICAgICAgIE11bmljaXBhbGl0eSBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgNTYgICAgICAgICAgICAgICAgICAgICAgICAgICAgMyAgICAgICAgICAgICAgICAgICAgICAgICAgICA0IFxuICAgICAgICAgTXVuaWNpcGFsaXR5LWNsaW5pYyAgICAgICAgIE5hdGlvbmFsIFBhcmstY2xpbmljICAgICAgICAgICAgICAgICBOZXcgTm90IE9wZW4gXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSBcbiAgICAgICAgICAgICAgICAgICAgTm90IE9wZW4gICAgICAgICAgICAgICAgICBQTUQgT2ZmaWNlcyAgICAgICAgICAgICAgICAgIFBvbHkgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgXG4gICAgICAgICAgICAgICBQcmlzb24gQ2xpbmljICAgICAgIFByaXZhdGUtQm9yZGVyIFRpbWJlcnMgICAgICAgICAgICAgUHJpdmF0ZS1Gb3Jlc3RyeSBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAyIFxuICAgICAgICAgICAgICAgIFByaXZhdGUtTWluZSAgICAgICAgICAgICBQcml2YXRlLVRhbmdhbmRhICAgICAgIFByaXZhdGUtV2FsdGxlIENvbXBhbnkgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDQgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSBcbiAgICAgICAgICAgICAgUHJpdmF0ZSBDbGluaWMgICAgICAgICAgICAgUHJpdmF0ZSBIb3NwaXRhbCAgICAgICAgICBQcml2YXRlIE1pbmUgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAxMiAgICAgICAgICAgICAgICAgICAgICAgICAgICA2ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgXG4gICAgICAgICBQcm92aW5jaWFsIEhvc3BpdGFsICAgICAgICAgICAgICBSYWlsd2F5cy1jbGluaWMgICAgICAgICAgUnVyYWwgSGVhbHRoIGNlbnRyZSBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDcgICAgICAgICAgICAgICAgICAgICAgICAgICAgNCAgICAgICAgICAgICAgICAgICAgICAgICAgICA5IFxuICAgICAgICAgUnVyYWwgSGVhbHRoIENlbnRyZSAgICAgICAgUnVyYWwgSGVhbHRoIEhvc3BpdGFsICAgICAgICAgICAgICAgICAgIFJ1cmFsIEhvc3AgXG4gICAgICAgICAgICAgICAgICAgICAgICAgMjQyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMyBcbiAgICAgICAgICAgICAgICAgUnVyYWwgSG9zcC4gICAgICAgICAgICAgICBSdXJhbCBIb3NwaXRhbCAgICAgICAgICAgICAgU2F0ZWxpdGUgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgIDQ4ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgXG4gICAgICAgICAgICAgICBTY2hvb2wgQ2xpbmljICAgICAgICAgICAgICAgICBULkIgSG9zcGl0YWwgICAgICAgICAgIFVuZGVyIENvbnN0cnVjdGlvbiBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDMgICAgICAgICAgICAgICAgICAgICAgICAgICAgMiAgICAgICAgICAgICAgICAgICAgICAgICAgICA1IFxuICAgICAgICAgICBVbml2ZXJzaXR5IGNsaW5pYyAgICAgICAgICAgICAgICAgICBaUlAgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuIn0= -->
-<pre><code>
-                  (New Site)     Acting District Hospital              Airforce-clinic 
-                           3                            1                            1 
-                 Army Clinic                Army Hospital                       clinic 
-                           2                            2                           16 
-                      Clinic        Clinic (construction)        Clinic Private Clinic 
-                         772                            2                            5 
-            Clinic(Not Open)                  Cliniclinic             Conucil Not Open 
-                           8                            1                            3 
-                     Council       Council (Construction)               Council clinic 
-                           1                            2                            5 
-              Council Clinic Council Clinic(Construction)                District Hosp 
-                          76                            4                            1 
-           District Hospital             District Hosptal              Family Planning 
-                          39                            1                            1 
-                 Farm Clinic           Farm Health Clinic             Forestry-Private 
-                           1                            2                            2 
-            General Hospital             Gold Mine Clinic                   Gvt Clinic 
-                           3                            2                           17 
-                 Gvt Council               Gvt Infections                     Hospital 
-                           1                            1                           19 
-                Hotel Clinic            Industrial Clinic           Matebeleland North 
-                           1                            1                            1 
-                 Mine Clinic               Mission clinic               Mission Clinic 
-                          23                            1                           16 
-            Mission Hospital            Mission Hospitals                 Municipality 
-                          56                            3                            4 
-         Municipality-clinic         National Park-clinic                 New Not Open 
-                           2                            2                            1 
-                    Not Open                  PMD Offices                  Poly Clinic 
-                           1                            1                            1 
-               Prison Clinic       Private-Border Timbers             Private-Forestry 
-                           1                            2                            2 
-                Private-Mine             Private-Tanganda       Private-Waltle Company 
-                           1                            4                            1 
-              Private Clinic             Private Hospital          Private Mine Clinic 
-                          12                            6                            2 
-         Provincial Hospital              Railways-clinic          Rural Health centre 
-                           7                            4                            9 
-         Rural Health Centre        Rural Health Hospital                   Rural Hosp 
-                         242                            1                            3 
-                 Rural Hosp.               Rural Hospital              Satelite Clinic 
-                           1                           48                            1 
-               School Clinic                 T.B Hospital           Under Construction 
-                           3                            2                            5 
-           University clinic                   ZRP Clinic 
-                           1                            1 </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Using the summary command, we can see that at least three-quarters of facilities have 0 beds recorded. The maximum number of beds recorded is 150.</p>
+<p>There are so many facility types that it is difficult to tell which are most common. Why are they not sorted by order of frequency like they were for doctors, nurses, and beds?</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDaGVjayBjbGFzcyBvZiBkYXRhXG5jbGFzcyhmYWNpbGl0aWVzX3NocCRUWVBFT0ZGQUNJKVxuYGBgIn0= -->
 <pre class="r"><code># Check class of data
 class(facilities_shp$TYPEOFFACI)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiY2hhcmFjdGVyXCJcbiJ9 -->
-<pre><code>[1] &quot;character&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>There are so many facility types that it is difficult to tell which are most common. Why are they not sorted by order of frequency like they were for doctors, nurses, and beds?</p>
+<p>After checking the class, we see that facility types are “character” data, meaning they are made up of letter or symbols rather than numbers (called “string” in Stata). So when we use the <code>table()</code> function, R sorts by alphabetical letter. This is helpful for spotting some of the data cleaning needs, but we need to give R special instructions if we want to order by frequency.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1NvcnQgaW4gZGVzY2VuZGluZyBvcmRlclxuc29ydCh0YWJsZShmYWNpbGl0aWVzX3NocCRUWVBFT0ZGQUNJKSxkZWNyZWFzaW5nPVRSVUUpXG5gYGAifQ== -->
 <pre class="r"><code>#Sort in descending order
 sort(table(facilities_shp$TYPEOFFACI),decreasing=TRUE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgICAgICAgICAgICAgICAgICAgQ2xpbmljICAgICAgICAgIFJ1cmFsIEhlYWx0aCBDZW50cmUgICAgICAgICAgICAgICBDb3VuY2lsIENsaW5pYyBcbiAgICAgICAgICAgICAgICAgICAgICAgICA3NzIgICAgICAgICAgICAgICAgICAgICAgICAgIDI0MiAgICAgICAgICAgICAgICAgICAgICAgICAgIDc2IFxuICAgICAgICAgICAgTWlzc2lvbiBIb3NwaXRhbCAgICAgICAgICAgICAgIFJ1cmFsIEhvc3BpdGFsICAgICAgICAgICAgRGlzdHJpY3QgSG9zcGl0YWwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgIDU2ICAgICAgICAgICAgICAgICAgICAgICAgICAgNDggICAgICAgICAgICAgICAgICAgICAgICAgICAzOSBcbiAgICAgICAgICAgICAgICAgTWluZSBDbGluaWMgICAgICAgICAgICAgICAgICAgICBIb3NwaXRhbCAgICAgICAgICAgICAgICAgICBHdnQgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAyMyAgICAgICAgICAgICAgICAgICAgICAgICAgIDE5ICAgICAgICAgICAgICAgICAgICAgICAgICAgMTcgXG4gICAgICAgICAgICAgICAgICAgICAgY2xpbmljICAgICAgICAgICAgICAgTWlzc2lvbiBDbGluaWMgICAgICAgICAgICAgICBQcml2YXRlIENsaW5pYyBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgMTYgICAgICAgICAgICAgICAgICAgICAgICAgICAxNiAgICAgICAgICAgICAgICAgICAgICAgICAgIDEyIFxuICAgICAgICAgUnVyYWwgSGVhbHRoIGNlbnRyZSAgICAgICAgICAgICBDbGluaWMoTm90IE9wZW4pICAgICAgICAgIFByb3ZpbmNpYWwgSG9zcGl0YWwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICA5ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDggICAgICAgICAgICAgICAgICAgICAgICAgICAgNyBcbiAgICAgICAgICAgIFByaXZhdGUgSG9zcGl0YWwgICAgICAgIENsaW5pYyBQcml2YXRlIENsaW5pYyAgICAgICAgICAgICAgIENvdW5jaWwgY2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgNiAgICAgICAgICAgICAgICAgICAgICAgICAgICA1ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUgXG4gICAgICAgICAgVW5kZXIgQ29uc3RydWN0aW9uIENvdW5jaWwgQ2xpbmljKENvbnN0cnVjdGlvbikgICAgICAgICAgICAgICAgIE11bmljaXBhbGl0eSBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDUgICAgICAgICAgICAgICAgICAgICAgICAgICAgNCAgICAgICAgICAgICAgICAgICAgICAgICAgICA0IFxuICAgICAgICAgICAgUHJpdmF0ZS1UYW5nYW5kYSAgICAgICAgICAgICAgUmFpbHdheXMtY2xpbmljICAgICAgICAgICAgICAgICAgIChOZXcgU2l0ZSkgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICA0ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDQgICAgICAgICAgICAgICAgICAgICAgICAgICAgMyBcbiAgICAgICAgICAgIENvbnVjaWwgTm90IE9wZW4gICAgICAgICAgICAgR2VuZXJhbCBIb3NwaXRhbCAgICAgICAgICAgIE1pc3Npb24gSG9zcGl0YWxzIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAzICAgICAgICAgICAgICAgICAgICAgICAgICAgIDMgXG4gICAgICAgICAgICAgICAgICBSdXJhbCBIb3NwICAgICAgICAgICAgICAgIFNjaG9vbCBDbGluaWMgICAgICAgICAgICAgICAgICBBcm15IENsaW5pYyBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDMgICAgICAgICAgICAgICAgICAgICAgICAgICAgMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAyIFxuICAgICAgICAgICAgICAgQXJteSBIb3NwaXRhbCAgICAgICAgQ2xpbmljIChjb25zdHJ1Y3Rpb24pICAgICAgIENvdW5jaWwgKENvbnN0cnVjdGlvbikgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgMiBcbiAgICAgICAgICBGYXJtIEhlYWx0aCBDbGluaWMgICAgICAgICAgICAgRm9yZXN0cnktUHJpdmF0ZSAgICAgICAgICAgICBHb2xkIE1pbmUgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgXG4gICAgICAgICBNdW5pY2lwYWxpdHktY2xpbmljICAgICAgICAgTmF0aW9uYWwgUGFyay1jbGluaWMgICAgICAgUHJpdmF0ZS1Cb3JkZXIgVGltYmVycyBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAyIFxuICAgICAgICAgICAgUHJpdmF0ZS1Gb3Jlc3RyeSAgICAgICAgICBQcml2YXRlIE1pbmUgQ2xpbmljICAgICAgICAgICAgICAgICBULkIgSG9zcGl0YWwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgMiBcbiAgICBBY3RpbmcgRGlzdHJpY3QgSG9zcGl0YWwgICAgICAgICAgICAgIEFpcmZvcmNlLWNsaW5pYyAgICAgICAgICAgICAgICAgIENsaW5pY2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgXG4gICAgICAgICAgICAgICAgICAgICBDb3VuY2lsICAgICAgICAgICAgICAgIERpc3RyaWN0IEhvc3AgICAgICAgICAgICAgRGlzdHJpY3QgSG9zcHRhbCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuICAgICAgICAgICAgIEZhbWlseSBQbGFubmluZyAgICAgICAgICAgICAgICAgIEZhcm0gQ2xpbmljICAgICAgICAgICAgICAgICAgR3Z0IENvdW5jaWwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSBcbiAgICAgICAgICAgICAgR3Z0IEluZmVjdGlvbnMgICAgICAgICAgICAgICAgIEhvdGVsIENsaW5pYyAgICAgICAgICAgIEluZHVzdHJpYWwgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgXG4gICAgICAgICAgTWF0ZWJlbGVsYW5kIE5vcnRoICAgICAgICAgICAgICAgTWlzc2lvbiBjbGluaWMgICAgICAgICAgICAgICAgIE5ldyBOb3QgT3BlbiBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuICAgICAgICAgICAgICAgICAgICBOb3QgT3BlbiAgICAgICAgICAgICAgICAgIFBNRCBPZmZpY2VzICAgICAgICAgICAgICAgICAgUG9seSBDbGluaWMgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSBcbiAgICAgICAgICAgICAgIFByaXNvbiBDbGluaWMgICAgICAgICAgICAgICAgIFByaXZhdGUtTWluZSAgICAgICBQcml2YXRlLVdhbHRsZSBDb21wYW55IFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgXG4gICAgICAgUnVyYWwgSGVhbHRoIEhvc3BpdGFsICAgICAgICAgICAgICAgICAgUnVyYWwgSG9zcC4gICAgICAgICAgICAgIFNhdGVsaXRlIENsaW5pYyBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuICAgICAgICAgICBVbml2ZXJzaXR5IGNsaW5pYyAgICAgICAgICAgICAgICAgICBaUlAgQ2xpbmljIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxIFxuIn0= -->
-<pre><code>
-                      Clinic          Rural Health Centre               Council Clinic 
-                         772                          242                           76 
-            Mission Hospital               Rural Hospital            District Hospital 
-                          56                           48                           39 
-                 Mine Clinic                     Hospital                   Gvt Clinic 
-                          23                           19                           17 
-                      clinic               Mission Clinic               Private Clinic 
-                          16                           16                           12 
-         Rural Health centre             Clinic(Not Open)          Provincial Hospital 
-                           9                            8                            7 
-            Private Hospital        Clinic Private Clinic               Council clinic 
-                           6                            5                            5 
-          Under Construction Council Clinic(Construction)                 Municipality 
-                           5                            4                            4 
-            Private-Tanganda              Railways-clinic                   (New Site) 
-                           4                            4                            3 
-            Conucil Not Open             General Hospital            Mission Hospitals 
-                           3                            3                            3 
-                  Rural Hosp                School Clinic                  Army Clinic 
-                           3                            3                            2 
-               Army Hospital        Clinic (construction)       Council (Construction) 
-                           2                            2                            2 
-          Farm Health Clinic             Forestry-Private             Gold Mine Clinic 
-                           2                            2                            2 
-         Municipality-clinic         National Park-clinic       Private-Border Timbers 
-                           2                            2                            2 
-            Private-Forestry          Private Mine Clinic                 T.B Hospital 
-                           2                            2                            2 
-    Acting District Hospital              Airforce-clinic                  Cliniclinic 
-                           1                            1                            1 
-                     Council                District Hosp             District Hosptal 
-                           1                            1                            1 
-             Family Planning                  Farm Clinic                  Gvt Council 
-                           1                            1                            1 
-              Gvt Infections                 Hotel Clinic            Industrial Clinic 
-                           1                            1                            1 
-          Matebeleland North               Mission clinic                 New Not Open 
-                           1                            1                            1 
-                    Not Open                  PMD Offices                  Poly Clinic 
-                           1                            1                            1 
-               Prison Clinic                 Private-Mine       Private-Waltle Company 
-                           1                            1                            1 
-       Rural Health Hospital                  Rural Hosp.              Satelite Clinic 
-                           1                            1                            1 
-           University clinic                   ZRP Clinic 
-                           1                            1 </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>After checking the class, we see that facility types are “character” data, meaning they are made up of letter or symbols rather than numbers (called “string” in Stata). So when we use the <code>table()</code> function, R sorts by alphabetical letter. This is helpful for spotting some of the data cleaning needs, but we need to give R special instructions if we want to order by frequency.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbXBvcnQgdGhlIHByb3ZpbmNlcyBzaGFwZWZpbGVcbnByb3ZpbmNlc19zaHAgPC0gcmVhZE9HUihcInp3ZV9wb2xibmRhX2FkbTFfMjUwa19jc28uc2hwXCIpXG5gYGAifQ== -->
-<pre class="r"><code># Import the provinces shapefile
-provinces_shp &lt;- readOGR(&quot;zwe_polbnda_adm1_250k_cso.shp&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiT0dSIGRhdGEgc291cmNlIHdpdGggZHJpdmVyOiBFU1JJIFNoYXBlZmlsZSBcblNvdXJjZTogXCJ6d2VfcG9sYm5kYV9hZG0xXzI1MGtfY3NvLnNocFwiLCBsYXllcjogXCJ6d2VfcG9sYm5kYV9hZG0xXzI1MGtfY3NvXCJcbndpdGggMTAgZmVhdHVyZXNcbkl0IGhhcyA1IGZpZWxkc1xuIn0= -->
-<pre><code>OGR data source with driver: ESRI Shapefile 
-Source: &quot;zwe_polbnda_adm1_250k_cso.shp&quot;, layer: &quot;zwe_polbnda_adm1_250k_cso&quot;
-with 10 features
-It has 5 fields</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDbGFzcyBvZiBkYXRhXG5jbGFzcyhwcm92aW5jZXNfc2hwKVxuYGBgIn0= -->
-<pre class="r"><code># Class of data
-class(provinces_shp)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU3BhdGlhbFBvbHlnb25zRGF0YUZyYW1lXCJcbmF0dHIoLFwicGFja2FnZVwiKVxuWzFdIFwic3BcIlxuIn0= -->
-<pre><code>[1] &quot;SpatialPolygonsDataFrame&quot;
-attr(,&quot;package&quot;)
-[1] &quot;sp&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><em>What is the most common type of facility?</em></p>
 <p>Great! Now we have a feel for our facilities data. But all of those points mapped in a blank space are not very helpful for getting a sense of where the facilities are located.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbXBvcnQgdGhlIHByb3ZpbmNlcyBzaGFwZWZpbGVcbnByb3ZpbmNlc19zaHAgPC0gcmVhZE9HUihcInp3ZV9wb2xibmRhX2FkbTFfMjUwa19jc28uc2hwXCIpXG5cbiMgQ2xhc3Mgb2YgZGF0YVxuY2xhc3MocHJvdmluY2VzX3NocClcbmBgYCJ9 -->
+<pre class="r"><code># Import the provinces shapefile
+provinces_shp &lt;- readOGR(&quot;zwe_polbnda_adm1_250k_cso.shp&quot;)
+
+# Class of data
+class(provinces_shp)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Again, we have spatial vector data, but this time the data are polygons. Let’s see what they look like.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IGFzIGEgbWFwXG5wbG90KHByb3ZpbmNlc19zaHApXG5gYGAifQ== -->
 <pre class="r"><code># Plot as a map
 plot(provinces_shp)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,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" /></p>
-<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Again, we have spatial vector data, but this time the data are polygons. Let’s see what they look like.</p>
+<p>Neat! But where did our facilities go? We need to add them on top of the provinces.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IGZhY2lsaXRpZXMgb24gdG9wIG9mIHByb3ZpbmNlc1xucGxvdChwcm92aW5jZXNfc2hwKVxucGxvdChmYWNpbGl0aWVzX3NocCwgYWRkPVRSVUUpICNhZGQ9VFJVRSBhZGRzIHRvIHByZXZpb3VzIHBsb3RcbmBgYCJ9 -->
@@ -666,23 +484,6 @@ plot(provinces_shp)</code></pre>
 plot(provinces_shp)
 plot(facilities_shp, add=TRUE) #add=TRUE adds to previous plot</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,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" /></p>
-<!-- rnb-plot-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Neat! But where did our facilities go? We need to add them on top of the provinces.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBFeGFtaW5lIHRoZSBkYXRhIGFnYWluLCB0aGlzIHRpbWUgd2l0aCBhIHByb3BvcnRpb24gdGFibGVcbnByb3AudGFibGUodGFibGUoZmFjaWxpdGllc19zaHAkVVBEQVRFRCkpXG5gYGAifQ== -->
-<pre class="r"><code># Examine the data again, this time with a proportion table
-prop.table(table(facilities_shp$UPDATED))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gICAgIDE5OTggICAgICAyMDA3IFxuMC44MjQ0ODk4IDAuMTc1NTEwMiBcbiJ9 -->
-<pre><code>
-     1998      2007 
-0.8244898 0.1755102 </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -691,9 +492,9 @@ prop.table(table(facilities_shp$UPDATED))</code></pre>
 <p>Now that we have examined our data and determined that much of the data are out of date, moving forward we just want to use the facilities that were updated more recently. Let’s look at what proportion of the total facilities we will be keeping if we do that.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTZWxlY3QgZmFjaWxpdGllcyB1cGRhdGVkIGluIDIwMDdcbmZhY2lsaXRpZXMyMDA3X3NocCA8LSBzdWJzZXQoZmFjaWxpdGllc19zaHAsIFVQREFURUQ9PTIwMDcpXG5gYGAifQ== -->
-<pre class="r"><code># Select facilities updated in 2007
-facilities2007_shp &lt;- subset(facilities_shp, UPDATED==2007)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBFeGFtaW5lIHRoZSBkYXRhIGFnYWluLCB0aGlzIHRpbWUgd2l0aCBhIHByb3BvcnRpb24gdGFibGVcbnByb3AudGFibGUodGFibGUoZmFjaWxpdGllc19zaHAkVVBEQVRFRCkpXG5gYGAifQ== -->
+<pre class="r"><code># Examine the data again, this time with a proportion table
+prop.table(table(facilities_shp$UPDATED))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -704,17 +505,24 @@ facilities2007_shp &lt;- subset(facilities_shp, UPDATED==2007)</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTZWxlY3QgZmFjaWxpdGllcyB1cGRhdGVkIGluIDIwMDdcbmZhY2lsaXRpZXMyMDA3X3NocCA8LSBzdWJzZXQoZmFjaWxpdGllc19zaHAsIFVQREFURUQ9PTIwMDcpXG5gYGAifQ== -->
+<pre class="r"><code># Select facilities updated in 2007
+facilities2007_shp &lt;- subset(facilities_shp, UPDATED==2007)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now let’s plot our new shapefile to look at the spatial distribution of facilities with data updated in 2007.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90XG5wbG90KHByb3ZpbmNlc19zaHApXG5wbG90KGZhY2lsaXRpZXMyMDA3X3NocCwgYWRkPVRSVUUpXG5gYGAifQ== -->
 <pre class="r"><code># Plot
 plot(provinces_shp)
 plot(facilities2007_shp, add=TRUE)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,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" /></p>
-<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Now let’s plot our new shapefile to look at the spatial distribution of facilities with data updated in 2007.</p>
+<p><em>What do you notice? Which provinces did not have any facilities included in the 2007 data update?</em></p>
+<p>Alright, let’s examine the data in our 2007 facilities shapefile. This time we’ll construct a more nicely formatted output with columns for the frequency and proportion of facilities by type. We do this by creating two new objects we’ll call <code>Freq</code> and <code>Pct</code>, and binding them together with the <code>cbind()</code> function. We’ll also use the <code>head()</code> function again, this time specifying that we want to see the first 15 rows.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXaXRoaW4gdGhlIHJlY2VudGx5IHVwZGF0ZWQgZmFjaWxpdGllcywgc2VsZWN0IHRoZSBjbGluaWNzLCBSSENzLCBhbmQgaG9zcGl0YWxzLlxuIyBFeHBsb3JlIHRoZSB0eXBlcyBvZiBmYWNpbGl0aWVzXG5GcmVxIDwtIHNvcnQodGFibGUoZmFjaWxpdGllc19zaHAkVFlQRU9GRkFDSSksIGRlY3JlYXNpbmc9VFJVRSlcblBjdCA8LSBwcm9wLnRhYmxlKEZyZXEpKjEwMCAjbXVsdGlwbHkgYnkgMTAwIGZvciBwZXJjZW50YWdlIGZvcm1hdFxuUGN0IDwtIHJvdW5kKFBjdCwgMikgIyByb3VuZCB0aGUgUGN0IHZhbHVlcyB0byB0d28gZGVjaW1hbCBwb2ludHNcbmhlYWQoY2JpbmQoRnJlcSwgUGN0KSwxNSkgI3VzZSBoZWFkKCAsMTUpIHRvIGp1c3QgbG9vayBhdCBmaXJzdCAxNSByb3dzIG9mIHRoZSB0YWJsZVxuYGBgIn0= -->
@@ -725,39 +533,22 @@ Pct &lt;- prop.table(Freq)*100 #multiply by 100 for percentage format
 Pct &lt;- round(Pct, 2) # round the Pct values to two decimal points
 head(cbind(Freq, Pct),15) #use head( ,15) to just look at first 15 rows of the table</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgICBGcmVxICAgUGN0XG5DbGluaWMgICAgICAgICAgICAgICA3NzIgNTIuNjJcblJ1cmFsIEhlYWx0aCBDZW50cmUgIDI0MiAxNi41MFxuQ291bmNpbCBDbGluaWMgICAgICAgIDc2ICA1LjE4XG5NaXNzaW9uIEhvc3BpdGFsICAgICAgNTYgIDMuODJcblJ1cmFsIEhvc3BpdGFsICAgICAgICA0OCAgMy4yN1xuRGlzdHJpY3QgSG9zcGl0YWwgICAgIDM5ICAyLjY2XG5NaW5lIENsaW5pYyAgICAgICAgICAgMjMgIDEuNTdcbkhvc3BpdGFsICAgICAgICAgICAgICAxOSAgMS4zMFxuR3Z0IENsaW5pYyAgICAgICAgICAgIDE3ICAxLjE2XG5jbGluaWMgICAgICAgICAgICAgICAgMTYgIDEuMDlcbk1pc3Npb24gQ2xpbmljICAgICAgICAxNiAgMS4wOVxuUHJpdmF0ZSBDbGluaWMgICAgICAgIDEyICAwLjgyXG5SdXJhbCBIZWFsdGggY2VudHJlICAgIDkgIDAuNjFcbkNsaW5pYyhOb3QgT3BlbikgICAgICAgOCAgMC41NVxuUHJvdmluY2lhbCBIb3NwaXRhbCAgICA3ICAwLjQ4XG4ifQ== -->
-<pre><code>                    Freq   Pct
-Clinic               772 52.62
-Rural Health Centre  242 16.50
-Council Clinic        76  5.18
-Mission Hospital      56  3.82
-Rural Hospital        48  3.27
-District Hospital     39  2.66
-Mine Clinic           23  1.57
-Hospital              19  1.30
-Gvt Clinic            17  1.16
-clinic                16  1.09
-Mission Clinic        16  1.09
-Private Clinic        12  0.82
-Rural Health centre    9  0.61
-Clinic(Not Open)       8  0.55
-Provincial Hospital    7  0.48</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p><em>What do you notice? Which provinces did not have any facilities included in the 2007 data update?</em></p>
-<p>Alright, let’s examine the data in our 2007 facilities shapefile. This time we’ll construct a more nicely formatted output with columns for the frequency and proportion of facilities by type. We do this by creating two new objects we’ll call <code>Freq</code> and <code>Pct</code>, and binding them together with the <code>cbind()</code> function. We’ll also use the <code>head()</code> function again, this time specifying that we want to see the first 15 rows.</p>
+<p>We can see the most of the facilities are some type of clinic, rural health centre, or hospital. Let’s create three new shapefiles, one for each of these facility types. We’ll use the <code>subset()</code> function again. To indicate multiple values to include in a single subset, use the <code>|</code> symbol (meaning “or”). R is case sensitive, so we need to specify that we want both <code>Clinic</code> and <code>clinic</code> values in our new <code>clinics2007_shp</code> object.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBuZXcgc2hhcGVmaWxlIHdpdGgganVzdCBzZWxlY3RlZCBjbGluaWNzXG5jbGluaWNzMjAwN19zaHAgPC0gc3Vic2V0KGZhY2lsaXRpZXMyMDA3X3NocCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJDbGluaWNcIiB8ICN0aGlzIGJhciBzaWduaWZpZXMgXCJPUlwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiY2xpbmljXCIpXG4jIENyZWF0ZSBhIG5ldyBzaGFwZWZpbGUgZm9yIFJIQ3NcblJIQ3MyMDA3X3NocCA8LSBzdWJzZXQoZmFjaWxpdGllczIwMDdfc2hwLFxuICAgICAgICAgICAgICAgICAgICAgICBUWVBFT0ZGQUNJPT1cIlJ1cmFsIEhlYWx0aCBDZW50cmVcIiB8XG4gICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiUnVyYWwgSGVhbHRoIGNlbnRyZVwiKVxuIyBDcmVhdGUgYSBuZXcgc2hhcGVmaWxlIGZvciBIb3NwaXRhbHNcbmhvc3BpdGFsczIwMDdfc2hwIDwtIHN1YnNldChmYWNpbGl0aWVzMjAwN19zaHAsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJIb3NwaXRhbFwiIHxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBUWVBFT0ZGQUNJPT1cIk1pc3Npb24gSG9zcGl0YWxcIiB8XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJSdXJhbCBIb3NwaXRhbFwiIHxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBUWVBFT0ZGQUNJPT1cIkRpc3RyaWN0IEhvc3BpdGFsXCIgfFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiUHJvdmluY2lhbCBIb3NwaXRhbFwiKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBuZXcgc2hhcGVmaWxlIHdpdGgganVzdCBzZWxlY3RlZCBjbGluaWNzXG5jbGluaWNzMjAwN19zaHAgPC0gc3Vic2V0KGZhY2lsaXRpZXMyMDA3X3NocCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJDbGluaWNcIiB8ICN0aGlzIGJhciBzaWduaWZpZXMgXCJPUlwiXG4gICAgICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiY2xpbmljXCIpXG5cbiMgQ3JlYXRlIGEgbmV3IHNoYXBlZmlsZSBmb3IgUkhDc1xuUkhDczIwMDdfc2hwIDwtIHN1YnNldChmYWNpbGl0aWVzMjAwN19zaHAsXG4gICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiUnVyYWwgSGVhbHRoIENlbnRyZVwiIHxcbiAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJSdXJhbCBIZWFsdGggY2VudHJlXCIpXG5cbiMgQ3JlYXRlIGEgbmV3IHNoYXBlZmlsZSBmb3IgSG9zcGl0YWxzXG5ob3NwaXRhbHMyMDA3X3NocCA8LSBzdWJzZXQoZmFjaWxpdGllczIwMDdfc2hwLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiSG9zcGl0YWxcIiB8XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJNaXNzaW9uIEhvc3BpdGFsXCIgfFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRZUEVPRkZBQ0k9PVwiUnVyYWwgSG9zcGl0YWxcIiB8XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVFlQRU9GRkFDST09XCJEaXN0cmljdCBIb3NwaXRhbFwiIHxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBUWVBFT0ZGQUNJPT1cIlByb3ZpbmNpYWwgSG9zcGl0YWxcIilcbmBgYCJ9 -->
 <pre class="r"><code># Create a new shapefile with just selected clinics
 clinics2007_shp &lt;- subset(facilities2007_shp,
                           TYPEOFFACI==&quot;Clinic&quot; | #this bar signifies &quot;OR&quot;
                           TYPEOFFACI==&quot;clinic&quot;)
+
 # Create a new shapefile for RHCs
 RHCs2007_shp &lt;- subset(facilities2007_shp,
                        TYPEOFFACI==&quot;Rural Health Centre&quot; |
                        TYPEOFFACI==&quot;Rural Health centre&quot;)
+
 # Create a new shapefile for Hospitals
 hospitals2007_shp &lt;- subset(facilities2007_shp,
                             TYPEOFFACI==&quot;Hospital&quot; |
@@ -766,23 +557,6 @@ hospitals2007_shp &lt;- subset(facilities2007_shp,
                             TYPEOFFACI==&quot;District Hospital&quot; |
                             TYPEOFFACI==&quot;Provincial Hospital&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We can see the most of the facilities are some type of clinic, rural health centre, or hospital. Let’s create three new shapefiles, one for each of these facility types. We’ll use the <code>subset()</code> function again. To indicate multiple values to include in a single subset, use the <code>|</code> symbol (meaning “or”). R is case sensitive, so we need to specify that we want both <code>Clinic</code> and <code>clinic</code> values in our new <code>clinics2007_shp</code> object.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IGZhY2lsaXRpZXMgYnkgdHlwZSB1c2luZyBkaWZmZXJlbnQgc2hhcGVzIGFuZCBjb2xvcnNcbnBsb3QocHJvdmluY2VzX3NocClcbnBsb3QoY2xpbmljczIwMDdfc2hwLCBhZGQgPSBULCBjb2wgPSBcInB1cnBsZVwiLCBwY2ggPSAxOSkgIzE5PWNpcmNsZSBzeW1ib2xcbmBgYCJ9 -->
-<pre class="r"><code># Plot facilities by type using different shapes and colors
-plot(provinces_shp)
-plot(clinics2007_shp, add = T, col = &quot;purple&quot;, pch = 19) #19=circle symbol</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSSENzMjAwN19zaHAsIGFkZCA9IFQsIGNvbCA9IFwiYmx1ZVwiLCBwY2ggPSAxNSkgIzE1PXNxdWFyZSBzeW1ib2xcbnBsb3QoaG9zcGl0YWxzMjAwN19zaHAsIGFkZCA9IFQsIGNvbCA9IFwicmVkXCIsIHBjaCA9IDE3KSAjMTc9dHJpYW5nbGUgc3ltYm9sXG5gYGAifQ== -->
-<pre class="r"><code>plot(RHCs2007_shp, add = T, col = &quot;blue&quot;, pch = 15) #15=square symbol
-plot(hospitals2007_shp, add = T, col = &quot;red&quot;, pch = 17) #17=triangle symbol</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,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" /></p>
-<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -832,18 +606,28 @@ colors() #see list of color options</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBsaXN0IG9mIGxhYmVscyBmb3IgdGhlIGxlZ2VuZFxubGVnZW5kTGFiIDwtIGMoXCJDbGluaWNcIiwgXCJSdXJhbCBIZWFsdGggQ2VudHJlXCIsIFwiSG9zcGl0YWxcIilcbmxlZ2VuZExhYlxuYGBgIn0= -->
-<pre class="r"><code># Create a list of labels for the legend
-legendLab &lt;- c(&quot;Clinic&quot;, &quot;Rural Health Centre&quot;, &quot;Hospital&quot;)
-legendLab</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQ2xpbmljXCIgICAgICAgICAgICAgIFwiUnVyYWwgSGVhbHRoIENlbnRyZVwiIFwiSG9zcGl0YWxcIiAgICAgICAgICAgXG4ifQ== -->
-<pre><code>[1] &quot;Clinic&quot;              &quot;Rural Health Centre&quot; &quot;Hospital&quot;           </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IHdpdGggbGVnZW5kXG5wbG90XzIwMDcgIyBSZW5kZXIgdGhlIHNhdmVkIHBsb3RcbmxlZ2VuZChcImJvdHRvbWxlZnRcIiwgbGVnZW5kPWxlZ2VuZExhYikgIyBBZGQgbGVnZW5kXG5gYGAifQ== -->
-<pre class="r"><code># Plot with legend
-plot_2007 # Render the saved plot
-legend(&quot;bottomleft&quot;, legend=legendLab) # Add legend</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBNYWtlIGl0IHByZXR0aWVyXG5wbG90KHByb3ZpbmNlc19zaHAsIGNvbCA9IFwiZ3JleTkzXCIsIGJvcmRlciA9IFwiZ3JleVwiLFxuICAgICAgbWFpbiA9IFwiWmltYmFid2UgSGVhbHRoIEZhY2lsaXRpZXMgVXBkYXRlZCBpbiAyMDA3XCIpICN0aXRsZSBvZiBwbG90XG5wbG90KGNsaW5pY3MyMDA3X3NocCwgYWRkID0gVCxcbiAgICAgIHBjaCA9IDIxLCAjZmlsbGVkIGNpcmNsZSBzeW1ib2xcbiAgICAgIGNvbCA9IFwiYmx1ZTRcIiwgI291dGxpbmUgY29sb3JcbiAgICAgIGJnID0gYWRqdXN0Y29sb3IoXCJibHVlMVwiLCBhbHBoYSA9IDAuNiksICNmaWxsIGNvbG9yLCBhbHBoYT10cmFuc3BhcmVuY3lcbiAgICAgIGNleCA9IDEuNSkgIyBpbmNyZWFzZSBmb250IHNpemVcbnBsb3QoUkhDczIwMDdfc2hwLCBhZGQgPSBULFxuICAgICAgcGNoID0gMjIsICNmaWxsZWQgc3F1YXJlIHN5bWJvbFxuICAgICAgY29sID0gXCJwdXJwbGU0XCIsXG4gICAgICBiZyA9IGFkanVzdGNvbG9yKFwicHVycGxlMVwiLCBhbHBoYSA9IDAuNyksXG4gICAgICBjZXggPSAxLjUpXG5wbG90KGhvc3BpdGFsczIwMDdfc2hwLCBhZGQgPSBULFxuICAgICAgcGNoID0gMjQsICNmaWxsZWQgdHJpYW5nbGUgc3ltYm9sXG4gICAgICBjb2wgPSBcInJlZDRcIixcbiAgICAgIGJnID0gYWRqdXN0Y29sb3IoXCJyZWQxXCIsIGFscGhhID0gMC44KSxcbiAgICAgIGNleCA9IDEuNSlcblxuIyBBc3NpZ24gcGxvdCB0byBhbiBvYmplY3QgZm9yIGVhc3kgbW9kaWZpY2F0aW9uIVxucGxvdF8yMDA3IDwtIHJlY29yZFBsb3QoKVxuYGBgIn0= -->
+<pre class="r"><code># Make it prettier
+plot(provinces_shp, col = &quot;grey93&quot;, border = &quot;grey&quot;,
+      main = &quot;Zimbabwe Health Facilities Updated in 2007&quot;) #title of plot
+plot(clinics2007_shp, add = T,
+      pch = 21, #filled circle symbol
+      col = &quot;blue4&quot;, #outline color
+      bg = adjustcolor(&quot;blue1&quot;, alpha = 0.6), #fill color, alpha=transparency
+      cex = 1.5) # increase font size
+plot(RHCs2007_shp, add = T,
+      pch = 22, #filled square symbol
+      col = &quot;purple4&quot;,
+      bg = adjustcolor(&quot;purple1&quot;, alpha = 0.7),
+      cex = 1.5)
+plot(hospitals2007_shp, add = T,
+      pch = 24, #filled triangle symbol
+      col = &quot;red4&quot;,
+      bg = adjustcolor(&quot;red1&quot;, alpha = 0.8),
+      cex = 1.5)
+
+# Assign plot to an object for easy modification!
+plot_2007 &lt;- recordPlot()</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -853,11 +637,26 @@ legend(&quot;bottomleft&quot;, legend=legendLab) # Add legend</code></pre>
 <p>Now let’s create a legend. We’ll need a list of the labels we want to give to each symbol.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBsaXN0IG9mIHN5bWJvbHMgZm9yIHRoZSBsZWdlbmRcbmxlZ2VuZFN5bSA8LSBjKDE5LCAxNSwgMTcpXG4jIENyZWF0ZSBhIGxpc3Qgb2YgY29sb3JzIGZvciB0aGUgbGVnZW5kXG5sZWdlbmRDb2wgPC0gYyhcImJsdWVcIiwgXCJwdXJwbGVcIiwgXCJyZWRcIilcbiMgUmUtZHJhdyB0aGUgcGxvdCBhbmQgbGVnZW5kXG5wbG90XzIwMDdcbmxlZ2VuZChcInRvcGxlZnRcIiwgbGVnZW5kID0gbGVnZW5kTGFiLFxuICAgICAgICBwY2ggPSBsZWdlbmRTeW0sIGNvbCA9IGxlZ2VuZENvbCxcbiAgICAgICAgYnR5ID0gXCJuXCIsICMgdHVybiBvZmYgdGhlIGxlZ2VuZCBib3JkZXJcbiAgICAgICAgY2V4ID0gMSwgIyBmb250IHNpemVcbiAgICAgICAgcHQuY2V4ID0gMS41KSAjIGluY3JlYXNlIHRoZSBzeW1ib2wgc2l6ZVxuIyBTYXZlIGNoYW5nZXMgdG8gcGxvdFxucGxvdF8yMDA3IDwtIHJlY29yZFBsb3QoKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBsaXN0IG9mIGxhYmVscyBmb3IgdGhlIGxlZ2VuZFxubGVnZW5kTGFiIDwtIGMoXCJDbGluaWNcIiwgXCJSdXJhbCBIZWFsdGggQ2VudHJlXCIsIFwiSG9zcGl0YWxcIilcbmxlZ2VuZExhYlxuXG4jIFBsb3Qgd2l0aCBsZWdlbmRcbnBsb3RfMjAwNyAjIFJlbmRlciB0aGUgc2F2ZWQgcGxvdFxubGVnZW5kKFwiYm90dG9tbGVmdFwiLCBsZWdlbmQ9bGVnZW5kTGFiKSAjIEFkZCBsZWdlbmRcbmBgYCJ9 -->
+<pre class="r"><code># Create a list of labels for the legend
+legendLab &lt;- c(&quot;Clinic&quot;, &quot;Rural Health Centre&quot;, &quot;Hospital&quot;)
+legendLab
+
+# Plot with legend
+plot_2007 # Render the saved plot
+legend(&quot;bottomleft&quot;, legend=legendLab) # Add legend</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We can see that just providing the labels was not sufficient. We also need to tell the <code>legend()</code> function the symbols and colors to go with each label.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBsaXN0IG9mIHN5bWJvbHMgZm9yIHRoZSBsZWdlbmRcbmxlZ2VuZFN5bSA8LSBjKDE5LCAxNSwgMTcpXG4jIENyZWF0ZSBhIGxpc3Qgb2YgY29sb3JzIGZvciB0aGUgbGVnZW5kXG5sZWdlbmRDb2wgPC0gYyhcImJsdWVcIiwgXCJwdXJwbGVcIiwgXCJyZWRcIilcblxuIyBSZS1kcmF3IHRoZSBwbG90IGFuZCBsZWdlbmRcbnBsb3RfMjAwN1xubGVnZW5kKFwidG9wbGVmdFwiLCBsZWdlbmQgPSBsZWdlbmRMYWIsXG4gICAgICAgIHBjaCA9IGxlZ2VuZFN5bSwgY29sID0gbGVnZW5kQ29sLFxuICAgICAgICBidHkgPSBcIm5cIiwgIyB0dXJuIG9mZiB0aGUgbGVnZW5kIGJvcmRlclxuICAgICAgICBjZXggPSAxLCAjIGZvbnQgc2l6ZVxuICAgICAgICBwdC5jZXggPSAxLjUpICMgaW5jcmVhc2UgdGhlIHN5bWJvbCBzaXplXG5cbiMgU2F2ZSBjaGFuZ2VzIHRvIHBsb3RcbnBsb3RfMjAwNyA8LSByZWNvcmRQbG90KClcbmBgYCJ9 -->
 <pre class="r"><code># Create a list of symbols for the legend
 legendSym &lt;- c(19, 15, 17)
 # Create a list of colors for the legend
 legendCol &lt;- c(&quot;blue&quot;, &quot;purple&quot;, &quot;red&quot;)
+
 # Re-draw the plot and legend
 plot_2007
 legend(&quot;topleft&quot;, legend = legendLab,
@@ -865,21 +664,9 @@ legend(&quot;topleft&quot;, legend = legendLab,
         bty = &quot;n&quot;, # turn off the legend border
         cex = 1, # font size
         pt.cex = 1.5) # increase the symbol size
+
 # Save changes to plot
 plot_2007 &lt;- recordPlot()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We can see that just providing the labels was not sufficient. We also need to tell the <code>legend()</code> function the symbols and colors to go with each label.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIHRoZSBwcmV0dHltYXByIHBhY2thZ2VcbmxpYnJhcnkocHJldHR5bWFwcilcbiMgVHJ5IGFkZGluZyB0aGVzZVxucGxvdF8yMDA3XG5hZGRzY2FsZWJhcigpXG5hZGRub3J0aGFycm93KClcbmBgYCJ9 -->
-<pre class="r"><code># Load the prettymapr package
-library(prettymapr)
-# Try adding these
-plot_2007
-addscalebar()
-addnortharrow()</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
